@@ -1,0 +1,12 @@
+@import '../../../../assets/styles/variables.scss';
+
+.custom-tooltip {
+  padding: 20px 15px;
+  background: $background-light-color;
+  border-radius: 5px;
+
+  p {
+    &.label { color: $secondary-color; }
+    &.value { color: $primary-color; margin-top: 3px; }
+  }
+}

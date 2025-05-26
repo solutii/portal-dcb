@@ -1,0 +1,56 @@
+@import '../../assets/styles/variables.scss';
+
+.login-page {
+  height: 100%;
+  padding: 0 !important;
+  background: $background-color;
+
+  .image-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 40%;
+
+    .tire { 
+      margin-right: 3%;
+      max-width: 350px;
+      height: auto;
+    }
+  }
+
+  .form-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    padding-right: 10%;
+
+    h2 { 
+      margin-top: 25px;
+      color: $terthiary-color;
+    }
+
+    .logo { 
+      align-self: center;
+      width: 100%;
+      max-width: 250px;
+      height: auto; 
+    }
+
+    .partner { 
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .Mui-focused {
+    fieldset {
+      border-color: $secondary-color !important;
+    } 
+  }
+
+  label.Mui-focused { 
+    color: $terthiary-color !important; 
+  }
+}

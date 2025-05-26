@@ -1,0 +1,27 @@
+.option {
+	width: 100%;
+	padding: 17.5px 0;
+
+	a { 
+		display: block;
+		margin-left: 20px;
+		text-decoration: none;
+		color: white;
+		font-size: 17px;
+		cursor: pointer;
+		&:hover { color: darkgray; }
+	}
+}
+
+.sub-option { 
+	margin-left: 20px;
+
+	> div {
+		margin-top: 5px;
+		svg { 
+			cursor: pointer;
+			margin: 0 15px 0 auto;
+			font-size: 28px;
+		}
+	}
+}

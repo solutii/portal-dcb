@@ -1,0 +1,29 @@
+.index-page {
+  display: flex;
+  flex-flow: column;
+  justify-content: unset;
+  padding-bottom: 75px;
+
+  .filter-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    margin-left: 50px;
+    margin-top: 25px;
+
+    label {
+      margin-right: auto; 
+      font-weight: bold; 
+    }
+  }
+
+  .data-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-top: 35px;
+    padding: 0 15px;
+  }
+}

@@ -1,0 +1,10 @@
+@import 'src/assets/styles/variables';
+
+.layout-tab {
+  .MuiTabs-flexContainer {
+    justify-content: center;
+  }
+  .MuiTab-textColorPrimary { color: $secondary-color; }
+  .Mui-selected { color: $secondary-color; }
+  .MuiTabs-indicator { background: $primary-color; }
+}

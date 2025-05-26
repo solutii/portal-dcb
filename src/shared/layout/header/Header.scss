@@ -1,0 +1,55 @@
+@import 'src/assets/styles/variables';
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: sticky;
+  padding: 0 2rem;
+  height: 125px;
+  @media(min-width: 1024px) { height: 150px; }
+  @media(min-width: 1600px) { height: 175px; }
+  @media(min-width: 1900px) { height: 200px; }
+	background-image: url('../../../assets/img/header.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media(max-width: $mobile-breakpoint-medium) { background-size: 175% 100%; }
+  @media(max-width: $mobile-breakpoint-small) { 
+    background-size: 335% 100%; 
+    background-position-x: 10%;
+  }
+  border-bottom: 1px solid #3b3e63;
+  color: black;
+  z-index: 999;
+  @media(max-width: $mobile-breakpoint-small) { padding: 0 2px; }
+  
+  svg { cursor: pointer; }
+  .logo-container {
+    margin-left: 3em; 
+
+    & > img { 
+      cursor: pointer;
+      width: 110px; 
+    }
+
+    @media (max-width: $mobile-breakpoint-large) {
+      img { width: 70px; }
+    }
+    
+    @media(max-width: $mobile-breakpoint-small) { margin-left: 10px; }    
+  }
+
+  h2 { 
+    margin: 0 125px 0 auto;
+    font-weight: bolder;
+    color: $secondary-color;
+    @media (max-width: $mobile-breakpoint-large) {
+      margin: 0 0 0 .8em;
+    }
+  }
+
+  .logout { 
+    margin-left: auto; 
+    color: $secondary-color; 
+  }
+}

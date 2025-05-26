@@ -1,0 +1,32 @@
+.layout {
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  
+  .inner {
+    display: flex;
+    flex-flow: column;
+    @media(max-width: 799px) { position: relative; }
+  }
+}
+
+.header-container {
+  @media (max-width: 500px) {
+    flex-direction: column-reverse;
+
+    .header {
+      margin-top: 1rem;
+      flex-direction: column;
+      text-align: center;
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+}

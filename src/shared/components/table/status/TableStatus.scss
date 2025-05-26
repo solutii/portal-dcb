@@ -1,0 +1,13 @@
+.order-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 190px;
+  border-radius: 5px;
+  padding: 4px 0;
+  margin: 0 auto;
+  
+  span {
+    color: white;
+  }
+}

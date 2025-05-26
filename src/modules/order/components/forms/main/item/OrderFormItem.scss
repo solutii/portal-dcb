@@ -1,0 +1,18 @@
+@import '../../../../../../assets/styles/variables.scss';
+
+.order-item-container {
+  width: 100%;
+
+  h3 { color: $secondary-color; }
+
+  .field-group-container {
+    margin-top: 15px;
+
+    .field-group {
+      .field {
+        min-width: unset;
+        &:not(:first-child) { margin-top: 5px; }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import 'src/assets/styles/variables';
+
+aside {	
+	min-width: 240px;
+	height: 100%;
+	background: $app-theme-color;
+	border-right: 1px solid lightgray;
+	box-shadow: 1px 2px 1px gray;
+	z-index: 999;
+	@media(max-width: 799px) { position: absolute; }
+}
