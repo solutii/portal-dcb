@@ -11,10 +11,14 @@
     align-items: center;
     width: 40%;
 
-    .tire { 
-      margin-right: 3%;
-      max-width: 350px;
+    @media (max-width: 700px) {
+      display: none;
+    }
+
+    .login { 
+      max-width: 40vw;
       height: auto;
+      padding-left: 50px;
     }
   }
 
@@ -24,7 +28,12 @@
     align-items: center;
     justify-content: center;
     width: 60%;
-    padding-right: 10%;
+    padding-right: 5%;
+
+    @media (max-width: 700px) {
+      width: 80%;
+      padding-right: 0;
+    }
 
     h2 { 
       margin-top: 25px;

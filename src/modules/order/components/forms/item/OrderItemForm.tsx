@@ -39,8 +39,8 @@ const OrderItemForm: FC<OrderItemFormProps> = ({ isEnabled, onSubmit, onClose }:
   const [formFields, setFormFields] = useState<IFormField[]>([
     {
       type: 'text',
-      name: 'Z8_NUM',
-      label: 'Orçamento',
+      name: 'C5_NUM',
+      label: 'Pedido',
     },
     {
       type: 'text',

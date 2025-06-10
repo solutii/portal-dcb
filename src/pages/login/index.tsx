@@ -6,12 +6,13 @@ import { signIn, changePassword, isUserLogged } from '../../modules/authenticati
 
 import AuthForm from '../../modules/authentication/components/forms/AuthForm'
 
-import sede from '../../assets/img/sede_dcb_principal.jpeg'
+import login from '../../assets/img/login.png'
 import logo from '../../assets/img/logo_dcb.png'
 import partner from '../../assets/img/partner.png'
 
 import './index.scss'
 import { toast } from 'react-toastify'
+import MolduraVerde from './moldura'
 
 const LoginPage: FC = (): JSX.Element => {
   const store: Store = useStore()
@@ -75,9 +76,13 @@ const LoginPage: FC = (): JSX.Element => {
 
   }
 
-  return <main className='login-page w-100 h-100 paddless'>
+  return <>
+    <main className='login-page w-100 h-100 paddless'>
+    <MolduraVerde />
+
+
     <div className='image-container'>
-      <img className='tire' src={sede} alt='pneu'  />
+      <img className='login' src={login} alt='pneu'  />
     </div>
     <div className='form-container'>
       <img className='logo' src={logo} alt='logo' />
@@ -91,6 +96,7 @@ const LoginPage: FC = (): JSX.Element => {
       {/* <img className='partner' src={partner} alt='dunloop' /> */}
     </div>
   </main>
+  </>
 }
 
 export default LoginPage

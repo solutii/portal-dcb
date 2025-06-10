@@ -8,7 +8,7 @@ import api from '../../../shared/infra/services/api'
 import { getReportCurrentPeriod } from '../../../shared/utils/date'
 
 
-export const storeCustomer = (customer: Customer, dispatch: Dispatch<CustomerStateActions>) =>
+export const storeCustomer = async (customer: Customer, dispatch: Dispatch<CustomerStateActions>) =>
   dispatch({ type: 'SET_CUSTOMER', payload: customer })
 
 export const updateCustomer = async (customer: Customer, dispatch?: Dispatch<CustomerStateActions>): Promise<Customer | void> => {
@@ -33,6 +33,8 @@ const formatPayableDate = (date: string): string => `${date.substring(6,8)}/${da
 export const getPayables = async (customer: Customer, dispatch: Dispatch<CustomerStateActions>): Promise<CustomerPayable[] | void> => { 
   const { firstDayOfMonth, lastDayOfMonth } = getReportCurrentPeriod()
 
+  debugger
+  console.log(customer)
   const customerPayablesRequest: CustomerPayableRequest = {
     CLIENTE: customer.A1_COD,
     LOJA: customer.A1_LOJA,

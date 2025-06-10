@@ -53,7 +53,7 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
   }
   
   const handleAddItemButtonClick = () => {
-    if (!order.Z8_COND) {
+    if (!order.C5_COND) {
       toast('É necessário primeiramente selecionar a condição de pagamento', { autoClose: 6000 })
       return
     }
@@ -70,13 +70,15 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
       const updatingOrderItems: OrderItem[] = [ 
         ...orderItems, 
         {
-          Z9_ITEM: `${orderItems.length > 8 ? '' : orderItems.length > 98 ? '0' : '00'}${orderItems.length + 1}`,
-          Z9_PRODUTO: product.B1_COD,
-          Z9_DESCR: product.B1_DESC,
-          Z9_QUANT: 1,
-          Z9_VUNIT: await getProductPrice(product.B1_COD, order.Z8_COND, store),
-          Z9_VSUG: product.PRCVEN,
-          Z9_TOTAL: product.PRCVEN,
+          C6_ITEM: `${orderItems.length > 8 ? '' : orderItems.length > 98 ? '0' : '00'}${orderItems.length + 1}`,
+          C6_PRODUTO: product.B1_COD,
+          C6_LOCAL: product.B1_LOCPAD,
+          C6_DESCRI: product.B1_DESC,
+          C6_QTDVEN: 1,
+          C6_PRCVEN: product.PRCVEN,
+          //C6_PRCVEN: await getProductPrice(product.B1_COD, order.C5_COND, store),
+          C6_PRCUNI: product.PRCVEN,
+          C6_TOTAL: product.PRCVEN,
           ESTOQUE: product.ESTOQUE,
         }
       ]
@@ -92,20 +94,20 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
     
 
   const handleOrderFormChange = (field: keyof Order, value: any) => {
-    if (field === 'Z8_COND') 
-      orderDispatch({ type: 'SET_ORDER', payload: { ...order, Z8_COND: value } })
+    if (field === 'C5_COND') 
+      orderDispatch({ type: 'SET_ORDER', payload: { ...order, C5_COND: value } })
   }
 
   const handleOrderFormItemFieldChange = (orderItemIndex: number, field: keyof OrderItem, value: any) => {
     const updatingOrderItems = [ ...orderItems ]
 
-    if (field === 'Z9_QUANT') { 
+    if (field === 'C6_QTDVEN') { 
       if (value > orderItems[orderItemIndex].ESTOQUE! || value > 100) {
         toast(`Quantidade indisponível`, { autoClose: 6000 })
         return
       }
 
-      updatingOrderItems[orderItemIndex].Z9_TOTAL = updatingOrderItems[orderItemIndex].Z9_VUNIT * value
+      updatingOrderItems[orderItemIndex].C6_TOTAL = updatingOrderItems[orderItemIndex].C6_PRCVEN * value
     }
 
     ;(updatingOrderItems[orderItemIndex] as any)[field] = value
@@ -116,10 +118,10 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
   const handleOrderFormItemFieldDelete = (orderItemIndex: number) => {
     let updatingOrderItems = [ ...orderItems ]
     
-    if (order.Z8_NUM)
+    if (order.C5_NUM)
       updatingOrderItems[orderItemIndex].AUTDELETA = 'S'
 
-    if (!order.Z8_NUM)
+    if (!order.C5_NUM)
       updatingOrderItems = ([ ...updatingOrderItems.slice(0, orderItemIndex), ...updatingOrderItems.slice(orderItemIndex + 1) ])
     
     setOrderItems(updatingOrderItems)
@@ -137,7 +139,7 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
   const handleProductsModalClose = () => setIsProductsTableModalEnabled(false)
 
   useEffect(() => { 
-    if (order.Z8_NUM)
+    if (order.C5_NUM)
       order.items!.map(item => ({ ...item, AUTDELETA: 'N' }))
   }, [])
 
@@ -145,7 +147,7 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
     [ 
       {
         type: 'date',
-        name: 'Z8_EMISSAO',
+        name: 'C5_EMISSAO',
         label: 'Data de Inclusão',
         formatFn: handleDateFormattingForDateInput,
         rules: { required: true },
@@ -153,7 +155,7 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
       },
       {
         type: 'select',
-        name: 'Z8_COND',
+        name: 'C5_COND',
         label: 'Condição de Pagamento',
         rules: { required: true },
         options: orderPaymentMethods?.map(orderPaymentMethod => ({
@@ -163,7 +165,7 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
       },
       /*{
         type: 'select',
-        name: 'Z8_TPFRETE',
+        name: 'C5_TPFRETE',
         label: 'Tipo do Frete',
         rules: { required: true },
         options: [
@@ -229,7 +231,7 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
           {order.items.map((orderItem, i) => 
             <Chip
               key={i}
-              label={`(${orderItem.Z9_QUANT}x) ${getProductDescriptionByID(orderItem.Z9_DESCR, products)}`}
+              label={`(${orderItem.C6_QTDVEN}x) ${getProductDescriptionByID(orderItem.C6_DESCR, products)}`}
               variant="outlined"
               onClick={() => handleOrderItemChipClick(i)}
               style={{ margin: '0.4rem',  color: 'black' }}
@@ -263,12 +265,12 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
     [{
       type: 'submit',
       name: 'submit',
-      label: order.Z8_NUM ? 'Salvar' : 'Fechar Pedido',
+      label: order.C5_NUM ? 'Salvar' : 'Fechar Pedido',
     }],
   ]
 
   useEffect(() => {
-    if (isEnabled && order.Z8_NUM) 
+    if (isEnabled && order.C5_NUM) 
       setOrderItems(order.items!.map(item => ({ ...item, AUTDELETA: 'N' })))
   }, [isEnabled])
 

@@ -26,8 +26,8 @@ export const generateReportChartData = (report: ReportType, data: any | any[], f
     
     case 'ordersBestSellers':
       reportData = data.map((orderItem: any) => ({
-        name: orderItem.Z9_DESCR,
-        value: orderItem.Z9_QUANT
+        name: orderItem.C6_DESCR,
+        value: orderItem.C6_QTDVEN
       }))
       break
 

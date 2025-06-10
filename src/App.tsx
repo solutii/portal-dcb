@@ -17,9 +17,9 @@ import SettingsPage from './pages/settings'
 
 import 'react-toastify/dist/ReactToastify.css'
 import './App.scss'
-import RastreioPage from './pages/rastreio'
 
 const App: FC = (): JSX.Element => {
+
   return <StyledEngineProvider injectFirst>
     <ThemeProvider theme={appTheme}>
       <ToastContainer
@@ -50,7 +50,6 @@ const App: FC = (): JSX.Element => {
               <LoginPage />
             </RouteGuard>
           }/>
-          <Route path='/rastreio' element={<RastreioPage />} />
         </Routes>
       </Router>
     </ThemeProvider>

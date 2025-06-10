@@ -4,35 +4,35 @@ import { OrderState, OrderStateActions } from '../models'
 
 export const orderInitialState: OrderState = {
   order: {
-    Z8_NUM: '',
-    Z8_TIPO: '',
-    Z8_CLIENTE: '',
-    Z8_TPFRETE: '',
-    Z8_LOJA: '',
-    Z8_COND: '',
-    Z8_FILIAL: '',
-    Z8_VEND: '',
-    Z8_EMISSAO: handleDateFormattingForDateInput(formatDate(Date.now())),
-    Z8_STATUS: '',
-    Z8_DESC: 0,
-    Z8_TOTAL: 0,
-    TOTAL: 0,
-    FATURADO: 0,
-    QTDITEM: 0,
-    STATUS: 'A',
+    C5_NUM: '',         // Número do pedido
+    C5_TIPO: '',        // Tipo do pedido
+    C5_CLIENTE: '',     // Código do cliente
+    C5_TPFRETE: '',     // Tipo de frete
+    C5_LOJA: '',        // Loja do cliente
+    C5_COND: '',        // Condição de pagamento
+    C5_FILIAL: '',      // Filial
+    C5_VEND: '',        // Vendedor
+    C5_EMISSAO: handleDateFormattingForDateInput(formatDate(Date.now())), // Data de emissão
+    C5_STATUS: '',      // Status do pedido
+    C5_DESC: 0,         // Desconto
+    C5_TOTAL: 0,        // Total do pedido
+    TOTAL: 0,           // Total geral
+    FATURADO: 0,        // Valor faturado
+    QTDITEM: 0,         // Quantidade de itens
+    STATUS: '0',        // Status adicional
   },
   orderItem: {
-    Z9_NUM: '',
-    Z9_FILIAL: '',
-    Z9_ITEM: '',
-    Z9_PRODUTO: '',
-    Z9_DESCR: '',
-    Z9_QUANT: 0,
-    Z9_VSUG: 0,
-    Z9_VUNIT: 0,
-    Z9_VDESC: 0, 
-    Z9_TOTAL: 0,
-    ESTOQUE: 0
+    C6_NUM: '',         // Número do pedido
+    C6_FILIAL: '',      // Filial
+    C6_ITEM: '',        // Item
+    C6_PRODUTO: '',     // Código do produto
+    C6_DESCRI: '',      // Descrição do produto
+    C6_QTDVEN: 0,       // Quantidade vendida
+    C6_PRCVEN: 0,       // Preço de venda
+    C6_PRCUNI: 0,       // Preço unitário
+    C6_VDESC: 0,        // Valor do desconto
+    C6_TOTAL: 0,        // Total do item
+    ESTOQUE: 0          // Estoque
   },
   orders: [],
   lastOrderItems: [],
@@ -54,7 +54,7 @@ export function orderReducer(state: OrderState, action: OrderStateActions): Orde
     case 'SET_LAST_ORDER_ITEMS': 
       return { ...state, lastOrderItems: action.payload }
     case 'RESET_ORDER': 
-      return { ...state, order: { ...orderInitialState.order, Z8_EMISSAO: handleDateFormattingForDateInput(formatDate(Date.now())), } }
+      return { ...state, order: { ...orderInitialState.order, C5_EMISSAO: handleDateFormattingForDateInput(formatDate(Date.now())), } }
     case 'SET_ORDERS': 
       return { ...state, orders: action.payload }
     case 'SET_LOADING': 

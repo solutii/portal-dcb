@@ -1,18 +1,18 @@
 import type { Dispatch } from 'react'
 
 export interface Order {
-  Z8_NUM?: string
-  Z8_FILIAL?: string
-  Z8_TPFRETE: string
-  Z8_TIPO: string
-  Z8_CLIENTE: string
-  Z8_LOJA: string
-  Z8_VEND?: string
-  Z8_COND: string
-  Z8_EMISSAO: string
-  Z8_STATUS: string
-  Z8_DESC: number
-  Z8_TOTAL: number  
+  C5_NUM?: string
+  C5_FILIAL?: string
+  C5_TPFRETE: string
+  C5_TIPO: string
+  C5_CLIENTE: string
+  C5_LOJA: string
+  C5_VEND?: string
+  C5_COND: string
+  C5_EMISSAO: string
+  C5_STATUS: string
+  C5_DESC: number
+  C5_TOTAL: number  
   QTDITEM: number
   TOTAL: number
   FATURADO: number
@@ -22,16 +22,17 @@ export interface Order {
 }
 
 export interface OrderItem {
-  Z9_NUM?: string
-  Z9_FILIAL?: string 
-  Z9_ITEM?: string
-  Z9_PRODUTO: string
-  Z9_DESCR?: string
-  Z9_QUANT: number
-  Z9_VSUG?: number
-  Z9_VUNIT: number
-  Z9_VDESC?: number
-  Z9_TOTAL: number
+  C6_NUM?: string
+  C6_FILIAL?: string 
+  C6_ITEM?: string
+  C6_LOCAL?: string
+  C6_PRODUTO: string
+  C6_DESCRI?: string
+  C6_QTDVEN: number
+  C6_PRCVEN: number
+  C6_PRCUNI: number
+  C6_VDESC?: number
+  C6_TOTAL: number
   ESTOQUE?: number
   AUTDELETA?: 'S' | 'N'
 }
@@ -40,8 +41,8 @@ export interface OrderRequest {
   FILIAL: string
   CLIENTE?: string
   LOJA?: string
-  INICIO?: string
-  FIM?: string
+  DATAINI?: string
+  DATAFIM?: string
   NUMERO?: string
 }
 
@@ -56,19 +57,17 @@ export interface OrderDetailRequest {
   NUMERO: string
 }
 
-export type OrderStatus = 'A' | 'L' | 'B' | 'F' | 'M' | 'E' | 'P' | 'O' | 'N' | 'C'
+export type OrderStatus = '0' | '1' | '2' | '3' | '4' | '5' | '7' | '8'
 
 export const orderStatusLabels: Record<OrderStatus, string> = {
-  'A': 'Em aberto',
-  'L': 'Liberado',
-  'B': 'Liberação Comercial',
-  'F': 'Liberação Financeira',
-  'M': 'Efetivado Parcialmente',
-  'E': 'Efetivado',
-  'P': 'Faturado Parcialmente',
-  'O': 'Faturado',
-  'N': 'Negado',
-  'C': 'Cancelado'
+  '0': "Em Aberto",
+  '1': "Encerrado",
+  '2': "Liberado - Blq. Crédito/Estoque",
+  '3': "Liberado - Sem Bloqueio",
+  '4': "com Bloqueio de Regra",
+  '5': "com Bloqueio de Verba",
+  '7': "Parcialmente Faturado",
+  '8': "Totalmente Faturado"
 }
 
 export interface OrderPaymentMethod {

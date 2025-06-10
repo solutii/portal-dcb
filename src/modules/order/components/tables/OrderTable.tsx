@@ -54,7 +54,7 @@ const OrderTable: FC = (): JSX.Element => {
   }
 
   const handleCopyRowButtonClick = (rowIndex: number) => {
-    openConfirmationDialog(`Confirma a criação de um orçamento igual ao Nº ${orders[rowIndex].Z8_NUM} ?`, createOrder, [orders[rowIndex], store])
+    openConfirmationDialog(`Confirma a criação de um pedido igual ao Nº ${orders[rowIndex].C5_NUM} ?`, createOrder, [orders[rowIndex], store])
   }
   
   const handleAddToolbarButtonClick = () => {
@@ -69,7 +69,7 @@ const OrderTable: FC = (): JSX.Element => {
   }
 
   const handleRemoveRowButtonClick = (rowIndex: number) => 
-    openConfirmationDialog(`Confirma exclusão do orçamento Nº ${orders[rowIndex].Z8_NUM} ?`, removeOrder, [rowIndex, store])
+    openConfirmationDialog(`Confirma exclusão do pedido Nº ${orders[rowIndex].C5_NUM} ?`, removeOrder, [rowIndex, store])
     
 
   const handleOrderItemViewColumnClick = (rowIndex: number) => {
@@ -79,19 +79,19 @@ const OrderTable: FC = (): JSX.Element => {
 
   const handleOrderXMLDownloadColumnClick = async (rowIndex: number) => {
     try {
-      loadingList.push(`${orders[rowIndex].Z8_NUM}XML`);
+      loadingList.push(`${orders[rowIndex].C5_NUM}XML`);
       setLoadingList(loadingList);
       const orderXmlBlob = await getOrderXML(orders[rowIndex], store)
 
       if (!orderXmlBlob)
       {
-        loadingList.splice(loadingList.indexOf(`${orders[rowIndex].Z8_NUM}XML`), 1);
+        loadingList.splice(loadingList.indexOf(`${orders[rowIndex].C5_NUM}XML`), 1);
         setLoadingList(loadingList);
         return
       }
 
       saveAs(orderXmlBlob.content, orderXmlBlob.name)
-      loadingList.splice(loadingList.indexOf(`${orders[rowIndex].Z8_NUM}XML`), 1);
+      loadingList.splice(loadingList.indexOf(`${orders[rowIndex].C5_NUM}XML`), 1);
       setLoadingList(loadingList);
     } finally {}
     
@@ -99,19 +99,19 @@ const OrderTable: FC = (): JSX.Element => {
 
   const handleOrderNFEDownloadColumnClick = async (rowIndex: number) => {
     try {
-      loadingList.push(`${orders[rowIndex].Z8_NUM}NFE`);
+      loadingList.push(`${orders[rowIndex].C5_NUM}NFE`);
       setLoadingList(loadingList);
       const orderNFeBlob = await getOrderNFE(orders[rowIndex], store)
 
       if (!orderNFeBlob) 
       {
-        loadingList.splice(loadingList.indexOf(`${orders[rowIndex].Z8_NUM}NFE`), 1);
+        loadingList.splice(loadingList.indexOf(`${orders[rowIndex].C5_NUM}NFE`), 1);
         setLoadingList(loadingList);
         return;
       }
 
       saveAs(orderNFeBlob.content, orderNFeBlob.name)
-      loadingList.splice(loadingList.indexOf(`${orders[rowIndex].Z8_NUM}NFE`), 1);
+      loadingList.splice(loadingList.indexOf(`${orders[rowIndex].C5_NUM}NFE`), 1);
       setLoadingList(loadingList);
     } finally {}
     
@@ -140,17 +140,17 @@ const OrderTable: FC = (): JSX.Element => {
 
   const handleOrderFormSubmit = async (order: Order): Promise<boolean> => {
     if (!order.items?.length) {
-      toast('Não é possível criar o orçamento sem itens.')
+      toast('Não é possível criar o pedido sem itens.')
       return false
     }
 
     for (const item of order.items)
-      if (!(item.Z9_QUANT /*&& item.Z9_VUNIT*/)) {
-        toast('Não é possível criar o orçamento enquanto houver itens sem valor ou quantidade.')
+      if (!(item.C6_QTDVEN /*&& item.C6_PRCVEN*/)) {
+        toast('Não é possível criar o pedido enquanto houver itens sem valor ou quantidade.')
         return false
       }
     
-    return await (order.Z8_NUM ? updateOrder : createOrder)(order, store)
+    return await (order.C5_NUM ? updateOrder : createOrder)(order, store)
       .then(() => { 
         setIsOrderFormModalEnabled(false)
         return true 
@@ -175,7 +175,7 @@ const OrderTable: FC = (): JSX.Element => {
       case 'downloadXML':
         // if (status === '7') 
         //   return '-'
-        if (loadingList.indexOf(`${order.Z8_NUM!}XML`) != -1 && field == 'downloadXML')
+        if (loadingList.indexOf(`${order.C5_NUM!}XML`) != -1 && field == 'downloadXML')
           return <Loader 
             width={20} 
             height={20}
@@ -195,7 +195,7 @@ const OrderTable: FC = (): JSX.Element => {
         // if (status === '7') 
         //   return '-'
 
-        if (loadingList.indexOf(`${order.Z8_NUM!}NFE`) != -1 && field == 'downloadNFE')
+        if (loadingList.indexOf(`${order.C5_NUM!}NFE`) != -1 && field == 'downloadNFE')
           return <Loader 
             width={20} 
             height={20}
@@ -215,7 +215,7 @@ const OrderTable: FC = (): JSX.Element => {
   }
 
   const generateDisplayableOrders = () => 
-  filteredOrders?.sort((a,b) => toInteger(a.Z8_NUM) - toInteger(b.Z8_NUM))
+  filteredOrders?.sort((a,b) => toInteger(a.C5_NUM) - toInteger(b.C5_NUM))
   .reverse()
   .map((order, i) => ({
     ...order,
@@ -227,7 +227,7 @@ const OrderTable: FC = (): JSX.Element => {
       }}
       statusLabels={orderStatusLabels} 
     />,
-    ...(order.Z8_EMISSAO && {Z8_EMISSAO: `${order.Z8_EMISSAO.slice(0,6)}20${order.Z8_EMISSAO.slice(-2)}`}),
+    ...(order.C5_EMISSAO && {C5_EMISSAO: `${order.C5_EMISSAO.slice(0,6)}20${order.C5_EMISSAO.slice(-2)}`}),
     items: [],
     //taxes: [],
     downloadXML: getTableActionContent('downloadXML', order, <TooltipIconButton title='Baixar XML' onClick={() => handleOrderXMLDownloadColumnClick(i)}>
@@ -247,8 +247,8 @@ const OrderTable: FC = (): JSX.Element => {
       data={generateDisplayableOrders()}
       columns={[
         { displayName: 'Status', dataKey: 'STATUS', alignment: 'center' },
-        { displayName: 'Nr Pedido', dataKey: 'Z8_NUM', alignment: 'center' },
-        { displayName: 'Dt Inclusão', dataKey: 'Z8_EMISSAO', alignment: 'center' },
+        { displayName: 'Nr Pedido', dataKey: 'C5_NUM', alignment: 'center' },
+        { displayName: 'Dt Inclusão', dataKey: 'C5_EMISSAO', alignment: 'center' },
         { displayName: 'Condição de Pagamento', dataKey: 'E4_DESCRI', alignment: 'center' },
         { displayName: 'Qtd de Itens', dataKey: 'QTDITEM', alignment: 'center' },
         { displayName: 'Total', dataKey: 'TOTAL', formatFn: formatCurrency },
@@ -256,9 +256,9 @@ const OrderTable: FC = (): JSX.Element => {
         //{ displayName: 'Impostos', dataKey: 'taxes', alignment: 'center' },
         { displayName: 'Baixar XML', dataKey: 'downloadXML', alignment: 'center' },
         { displayName: 'Baixar NFe', dataKey: 'downloadNFE', alignment: 'center' },
-        { displayName: 'Copiar Orç', dataKey: 'copyOrder', alignment: 'center' },
+        /* { displayName: 'Copiar Ped', dataKey: 'copyOrder', alignment: 'center' }, */
       ]}
-      title='Orçamentos'
+      title='Pedidos'
       toolbarContent={<TableToolbar> 
         <div style={{ 
           display: 'flex', 
@@ -288,7 +288,7 @@ const OrderTable: FC = (): JSX.Element => {
         </div>
         
       </TableToolbar>}
-      addToolbarButton={{ 
+      /* addToolbarButton={{ 
         caption: 'Fazer Um Pedido', 
         style: { 
           width: 350,
@@ -297,7 +297,7 @@ const OrderTable: FC = (): JSX.Element => {
           margin: '15px 0 15px 15px',
           paddingLeft: 35
         }
-      }}
+      }} */
       onAddToolbarButtonClick={handleAddToolbarButtonClick}
       onRowColumnClick={handleRowColumnClick}
       //onEditRowButtonClick={handleEditRowButtonClick}

@@ -86,7 +86,7 @@ const Layout: FC = () => {
   //}
 
   const options = [
-    { label: 'Orçamentos', to: '/orders' },
+    { label: 'Pedidos', to: '/orders' },
     { label: 'Contas a Pagar', to: '/payables' },
     { label: 'Resumo', to: '/' },
     { label: 'Trocar Senha', to: '/settings' },
@@ -97,7 +97,7 @@ const Layout: FC = () => {
     {
       // @ts-ignore
       <Helmet>
-        <title>GV PNEUS</title>
+        <title>DCB</title>
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='anonymous'></link>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"></link>

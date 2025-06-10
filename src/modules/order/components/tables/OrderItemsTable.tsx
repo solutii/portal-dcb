@@ -19,21 +19,21 @@ const OrderItemsTable: FC<OrderItemsTableProps> = ({ style }): JSX.Element => {
   return <><Table
     data={orderItems!}
     columns={[
-      { displayName: 'Item', dataKey: 'Z9_ITEM', alignment: 'center' },
-      { displayName: 'Código do Produto', dataKey: 'Z9_PRODUTO', alignment: 'center' },
-      { displayName: 'Quantidade', dataKey: 'Z9_QUANT', alignment: 'center' },
-      { displayName: 'Valor Unit.', dataKey: 'Z9_VUNIT', alignment: 'center', formatFn: formatCurrency },
-      { displayName: 'Total', dataKey: 'Z9_TOTAL', formatFn: formatCurrency },
+      { displayName: 'Item', dataKey: 'C6_ITEM', alignment: 'center' },
+      { displayName: 'Código do Produto', dataKey: 'C6_PRODUTO', alignment: 'center' },
+      { displayName: 'Quantidade', dataKey: 'C6_QTDVEN', alignment: 'center' },
+      { displayName: 'Valor Unit.', dataKey: 'C6_PRCVEN', alignment: 'center', formatFn: formatCurrency },
+      { displayName: 'Total', dataKey: 'C6_TOTAL', formatFn: formatCurrency },
     ]}
-    title='Itens do orçamento'
+    title='Itens do pedido'
     style={style}
   />
   <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px', gap: '15px' }}>
     <span style={{ fontSize: '1em', fontWeight: 'bold' }}>
-      Quantidade: {orderItems!.reduce((acc, item) => acc + item.Z9_QUANT, 0)}
+      Quantidade: {orderItems?.reduce((acc, item) => acc + item.C6_QTDVEN, 0)}
     </span>
     <span style={{ fontSize: '1em', fontWeight: 'bold' }}>
-      Total: {formatCurrency(orderItems!.reduce((acc, item) => acc + item.Z9_TOTAL, 0))}
+      Total: { formatCurrency(orderItems?.reduce((acc, item) => acc + item.C6_TOTAL, 0))}
     </span>
   </div>
   </>

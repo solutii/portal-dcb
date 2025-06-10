@@ -24,6 +24,7 @@ import CustomChartTooltipProducts from '../../shared/components/chart/tooltip/Ch
 
 
 const IndexPage: FC = (): JSX.Element => {
+
   const store = useStore()
 
   const { 
@@ -102,7 +103,7 @@ const IndexPage: FC = (): JSX.Element => {
         contentStyle={{ height: '100%'}}
       >
         <CustomPieChart 
-          title='Orçamentos Colocados' 
+          title='Pedidos Colocados' 
           data={generateReportChartData('orderStatus', generateOrderStatusReport(filteredOrders), 'randomColorFill') || [] }
           containerStyle={{ height: '100%' }}
         />
@@ -149,7 +150,7 @@ const IndexPage: FC = (): JSX.Element => {
         }
       </Card> */}
       {/* <Card 
-        title='Orçamentos por mês (em R$)'
+        title='Pedidos por mês (em R$)'
         loading={orderLoading.orders}
         style={{ ...card.style }}
         contentStyle={{ height: '100%', marginTop: 3 }}

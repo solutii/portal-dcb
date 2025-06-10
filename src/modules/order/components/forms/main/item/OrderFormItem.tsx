@@ -62,7 +62,7 @@ const OrderFormItem: FC<OrderFormItemProps> = ({ orderItems, onFieldChange = () 
             <TextField 
               type='text'
               label='Código'
-              value={orderItem.Z9_PRODUTO}
+              value={orderItem.C6_PRODUTO}
               size='small'
               InputLabelProps={{ shrink: true }}
               disabled={true}
@@ -73,7 +73,7 @@ const OrderFormItem: FC<OrderFormItemProps> = ({ orderItems, onFieldChange = () 
             <TextField 
               type='text'
               label='Descrição'
-              value={getProductDescriptionByID(orderItem.Z9_PRODUTO, products)}
+              value={getProductDescriptionByID(orderItem.C6_PRODUTO, products)}
               size='small'
               InputLabelProps={{ shrink: true }}
               disabled={true}
@@ -84,8 +84,8 @@ const OrderFormItem: FC<OrderFormItemProps> = ({ orderItems, onFieldChange = () 
             <TextField 
               type='number'
               label='Quantidade'
-              value={orderItem.Z9_QUANT}
-              onChange={({ target: { value }}) => handleFieldChange(i, 'Z9_QUANT', parseInt(value))}
+              value={orderItem.C6_QTDVEN}
+              onChange={({ target: { value }}) => handleFieldChange(i, 'C6_QTDVEN', parseInt(value))}
               size='small'
               InputLabelProps={{ shrink: true }}
               style={{ width: '100%' }}
@@ -95,7 +95,7 @@ const OrderFormItem: FC<OrderFormItemProps> = ({ orderItems, onFieldChange = () 
             <TextField 
               type='text'
               label='Vl. Unitário'
-              value={orderItem.Z9_VUNIT}
+              value={orderItem.C6_PRCVEN}
               size='small'
               InputLabelProps={{ shrink: true }}
               style={{ width: '100%' }}
@@ -122,7 +122,7 @@ const OrderFormItem: FC<OrderFormItemProps> = ({ orderItems, onFieldChange = () 
           <TextField 
             type='text'
             label='Quantidade Total'
-            value={orderItems.reduce((acc, orderItem) => acc + (orderItem.Z9_QUANT), 0)}
+            value={orderItems.reduce((acc, orderItem) => acc + (orderItem.C6_QTDVEN), 0)}
             size='small'
             InputLabelProps={{ shrink: true }}
             style={{ width: '90%' }}
@@ -133,7 +133,7 @@ const OrderFormItem: FC<OrderFormItemProps> = ({ orderItems, onFieldChange = () 
           <TextField
             type='text'
             label='Valor Total'
-            value={orderItems.reduce((acc, orderItem) => acc + (orderItem.Z9_QUANT * orderItem.Z9_VUNIT), 0)}
+            value={orderItems.reduce((acc, orderItem) => acc + (orderItem.C6_QTDVEN * orderItem.C6_PRCVEN), 0)}
             size='small'
             InputLabelProps={{ shrink: true }}
             style={{ width: '90%' }}
