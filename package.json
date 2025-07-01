@@ -9,11 +9,6 @@
     "@hookform/resolvers": "^2.8.8",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.6.1",
-    "@types/jest": "24.0.18",
-    "@types/lodash": "^4.14.141",
-    "@types/node": "^12.7.8",
-    "@types/react": "^16.14.43",
-    "@types/react-dom": "^18.0.0",
     "axios": "^0.26.1",
     "crypto-js": "^4.1.1",
     "file-saver": "^2.0.5",
@@ -59,10 +54,15 @@
     "@types/crypto-js": "^4.1.1",
     "@types/file-saver": "^2.0.5",
     "@types/moment": "^2.13.0",
-    "@types/react": "^18.2.0",
     "@types/react-helmet": "^5.0.11",
     "@types/react-router-dom": "^5.3.3",
     "eslint-config-react-app": "7.0.1",
+    "@types/jest": "24.0.18",
+    "@types/lodash": "^4.14.141",
+    "@types/node": "^12.7.8",
+    "@types/react": "^16.14.43",
+    "@types/react-dom": "^18.0.0",
+
     "prettier": "^2.0.4"
   }
 }
