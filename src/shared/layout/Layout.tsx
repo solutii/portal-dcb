@@ -17,7 +17,6 @@ import CompanyChooser from '../../modules/company/components/CompanyChooser'
 import CustomerForm from '../../modules/customer/components/forms/CustomerForm'
 
 import './Layout.scss'
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Tab from './tab/Tab'
 
 import { getOrderPaymentMethods, getOrders, getOrdersItems, setOrdersItems } from '../../modules/order/services'

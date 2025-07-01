@@ -1,6 +1,6 @@
 
 import React, { CSSProperties } from 'react'
-import RLoader from 'react-loader-spinner'
+import { TailSpin } from 'react-loader-spinner'
 
 interface LoaderProps {
   height?: number
@@ -11,8 +11,8 @@ interface LoaderProps {
 
 const Loader = ({ height = 100, width = 100, color = '#f6f6fade', containerStyle }: LoaderProps) => 
   <div style={containerStyle}>
-    <RLoader
-      type='TailSpin'
+    <TailSpin
+      ariaLabel="tail-spin-loading"
       color={color}
       height={height}
       width={width}
