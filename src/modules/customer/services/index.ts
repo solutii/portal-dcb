@@ -33,8 +33,6 @@ const formatPayableDate = (date: string): string => `${date.substring(6,8)}/${da
 export const getPayables = async (customer: Customer, dispatch: Dispatch<CustomerStateActions>): Promise<CustomerPayable[] | void> => { 
   const { firstDayOfMonth, lastDayOfMonth } = getReportCurrentPeriod()
 
-  debugger
-  console.log(customer)
   const customerPayablesRequest: CustomerPayableRequest = {
     CLIENTE: customer.A1_COD,
     LOJA: customer.A1_LOJA,
@@ -112,7 +110,7 @@ export const getPayableBankSlipCode = async (payable: CustomerPayable, store: St
     NUM: payable.E1_NUM,
     PARCELA: payable.E1_PARCELA,
     TIPO: payable.E1_TIPO,
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
   }
 
   try {
@@ -143,7 +141,7 @@ export const getPayableBankSlipDoc = async (payable: CustomerPayable, store: Sto
     NUM: payable.E1_NUM,
     PARCELA: payable.E1_PARCELA,
     TIPO: payable.E1_TIPO,
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
   }
 
   dispatch({ type: 'SET_LOADING', payload: { loading: false, loadingId: `${payable.E1_NUM!}PDF` }})

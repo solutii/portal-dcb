@@ -22,16 +22,16 @@ export const orderInitialState: OrderState = {
     STATUS: '0',        // Status adicional
   },
   orderItem: {
-    C6_NUM: '',         // Número do pedido
+    C5_NUM: '',         // Número do pedido
     C6_FILIAL: '',      // Filial
     C6_ITEM: '',        // Item
     C6_PRODUTO: '',     // Código do produto
-    C6_DESCRI: '',      // Descrição do produto
+    B1_DESC: '',      // Descrição do produto
     C6_QTDVEN: 0,       // Quantidade vendida
     C6_PRCVEN: 0,       // Preço de venda
     C6_PRCUNI: 0,       // Preço unitário
     C6_VDESC: 0,        // Valor do desconto
-    C6_TOTAL: 0,        // Total do item
+    C6_VALOR: 0,        // Total do item
     ESTOQUE: 0          // Estoque
   },
   orders: [],

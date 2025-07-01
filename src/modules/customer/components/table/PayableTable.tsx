@@ -167,7 +167,7 @@ const PayableTable: FC = (): JSX.Element => {
         { displayName: 'Valor', dataKey: 'E1_VALOR', alignment: 'center' },
         { displayName: 'Juros', dataKey: 'E1_JUROS', alignment: 'center' },
         { displayName: 'Multa', dataKey: 'E1_MULTA', alignment: 'center' },
-        { displayName: 'Boleto', dataKey: 'obtainBankSlipDoc', alignment: 'center' },
+        /* { displayName: 'Boleto', dataKey: 'obtainBankSlipDoc', alignment: 'center' }, */
         /* { displayName: 'Chave Pix', dataKey: 'generatePixKey', alignment: 'center' }, */
       ]}
       title='Contas a Pagar'

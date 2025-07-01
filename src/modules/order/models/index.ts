@@ -12,7 +12,8 @@ export interface Order {
   C5_EMISSAO: string
   C5_STATUS: string
   C5_DESC: number
-  C5_TOTAL: number  
+  C5_TOTAL: number
+  E4_DESCRI?: string
   QTDITEM: number
   TOTAL: number
   FATURADO: number
@@ -22,17 +23,17 @@ export interface Order {
 }
 
 export interface OrderItem {
-  C6_NUM?: string
+  C5_NUM?: string
   C6_FILIAL?: string 
   C6_ITEM?: string
   C6_LOCAL?: string
   C6_PRODUTO: string
-  C6_DESCRI?: string
+  B1_DESC?: string
   C6_QTDVEN: number
   C6_PRCVEN: number
   C6_PRCUNI: number
   C6_VDESC?: number
-  C6_TOTAL: number
+  C6_VALOR: number
   ESTOQUE?: number
   AUTDELETA?: 'S' | 'N'
 }
@@ -67,7 +68,7 @@ export const orderStatusLabels: Record<OrderStatus, string> = {
   '4': "com Bloqueio de Regra",
   '5': "com Bloqueio de Verba",
   '7': "Parcialmente Faturado",
-  '8': "Totalmente Faturado"
+  '8': "Totalmente Faturado"
 }
 
 export interface OrderPaymentMethod {

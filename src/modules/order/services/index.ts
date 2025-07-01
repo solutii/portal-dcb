@@ -18,7 +18,7 @@ export const getOrders = async (customer: Customer, company: Company, store: Sto
 
   const orderRequest: OrderRequest = {
     CLIENTE: customer.A1_COD,
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     LOJA: customer.A1_LOJA,
     DATAINI: firstDayOfMonth,
     DATAFIM: lastDayOfMonth
@@ -80,7 +80,7 @@ export const getOrderByID = async (orderID: string, company: Company, store: Sto
     customerReducer: { state: { customer }},
   }= store
   const orderRequest: OrderRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     NUMERO: orderID
   }
 
@@ -89,6 +89,8 @@ export const getOrderByID = async (orderID: string, company: Company, store: Sto
     api.handleResponse(response)
 
     const order: Order = response.data.dados[0]
+
+
 
     if (!order.items || !order.items.length)
       order.items = await getOrderItems(order.C5_NUM!, store) as OrderItem[]
@@ -129,20 +131,23 @@ export const getOrderItems = async (orderNumber: string, store: Store): Promise 
 
 
   const orderItemsRequest: OrderDetailRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     NUMERO: orderNumber
   }
 
-  console.log("teste numero pedido", orderNumber)
-
   dispatch({ type: 'SET_LOADING', payload: { orderItems: true } })
   try {
+    debugger
     const response = await api.post('/COLETAITEMPEDIDO', orderItemsRequest)
     api.handleResponse(response)
 
     const orderItems: OrderItem[] = response.data.dados
 
-    const foundOrderIndex = orders.findIndex(findingOrder => findingOrder.C5_NUM === orderNumber)
+    debugger
+
+    const foundOrderIndex = orders?.findIndex(findingOrder => findingOrder.C5_NUM === orderNumber)
+
+    console.log("teste 123 321")
     
     if (foundOrderIndex > -1) {
       const updatingOrders = [ ...orders ]
@@ -163,200 +168,18 @@ export const getOrderItems = async (orderNumber: string, store: Store): Promise 
 
 export const getOrdersItems = async (customer: Customer, company: Company, dispatch: Dispatch<OrderStateActions>): Promise<OrderItem[] | void> => {
   const ordersItemsRequest = {
-    FILIAL: company?.FILIAL ?? '01',
+    FILIAL: company?.FILIAL ?? '0101',
     LOJA: '01',
     CLIENTE: customer.A1_COD
   }
 
   dispatch({ type: 'SET_LOADING', payload: { ordersItems: true } })
   try {
+    debugger
     const response = await api.post('/COLETAITEMPEDIDO', ordersItemsRequest)
     api.handleResponse(response)
 
     const orderItems: OrderItem[] = response.data.dados
-
-    // const orderItems: OrderItem[] = [
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '01',
-    //     C6_PRODUTO: '101101',
-    //     C6_DESCRI: 'Produto 1',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 413.05,
-    //     C6_VALOR: 826.1,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000932',
-    //     C6_PRUNIT: 413.05,
-    //     ESTOQUE: 0
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '01',
-    //     C6_PRODUTO: '101101',
-    //     C6_DESCRI: 'Produto 1',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 413.05,
-    //     C6_VALOR: 826.1,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000933',
-    //     C6_PRUNIT: 413.05,
-    //     ESTOQUE: 0
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '01',
-    //     C6_PRODUTO: '101102',
-    //     C6_DESCRI: 'Produto 2',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 413,
-    //     C6_VALOR: 826,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000933',
-    //     C6_PRUNIT: 413,
-    //     ESTOQUE: 0
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '02',
-    //     C6_PRODUTO: '103550',
-    //     C6_DESCRI: 'Produto 3',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 500.0,
-    //     C6_VALOR: 900.0,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000934',
-    //     C6_PRUNIT: 500.00,
-    //     ESTOQUE: 10
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '02',
-    //     C6_PRODUTO: '103551',
-    //     C6_DESCRI: 'Produto 4',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 500.0,
-    //     C6_VALOR: 900.0,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000935',
-    //     C6_PRUNIT: 900.00,
-    //     ESTOQUE: 10
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '02',
-    //     C6_PRODUTO: '103552',
-    //     C6_DESCRI: 'Produto 5',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 5,
-    //     C6_PRCVEN: 500.0,
-    //     C6_VALOR: 900.0,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000936',
-    //     C6_PRUNIT: 300.00,
-    //     ESTOQUE: 10
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '02',
-    //     C6_PRODUTO: '103553',
-    //     C6_DESCRI: 'Produto 6',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 1,
-    //     C6_PRCVEN: 500.0,
-    //     C6_VALOR: 900.0,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000937',
-    //     C6_PRUNIT: 200.00,
-    //     ESTOQUE: 10
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '01',
-    //     C6_PRODUTO: '101101',
-    //     C6_DESCRI: 'Produto 1',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 413.05,
-    //     C6_VALOR: 826.1,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000938',
-    //     C6_PRUNIT: 413.05,
-    //     ESTOQUE: 0
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '01',
-    //     C6_PRODUTO: '101101',
-    //     C6_DESCRI: 'Produto 1',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 413.05,
-    //     C6_VALOR: 826.1,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000939',
-    //     C6_PRUNIT: 413.05,
-    //     ESTOQUE: 0
-    //   },
-    //   {
-    //     C6_FILIAL: '01',
-    //     C6_ITEM: '01',
-    //     C6_PRODUTO: '101101',
-    //     C6_DESCRI: 'Produto 1',
-    //     C6_UM: 'PC',
-    //     C6_QTDVEN: 2,
-    //     C6_PRCVEN: 413.05,
-    //     C6_VALOR: 826.1,
-    //     C6_TES: '530',
-    //     C6_LOCAL: '01',
-    //     C6_QTDENT: 2,
-    //     C6_VALDESC: 0,
-    //     C6_ENTREG: '04/10/22',
-    //     C6_NUM: '000940',
-    //     C6_PRUNIT: 413.05,
-    //     ESTOQUE: 0
-    //   },
-    // ]
 
     dispatch({ type: 'SET_LOADING', payload: { orderItems: false } })
     return orderItems
@@ -374,10 +197,10 @@ export const setOrdersItems = (orders: Order[], ordersItems: OrderItem[], dispat
   const updatingOrders = [ ...orders ]
 
   ordersItems?.forEach(orderItem => {
-    const foundOrderIndex = orders.findIndex(findingOrder => findingOrder.C5_NUM === orderItem.C6_NUM)
+    const foundOrderIndex = orders?.findIndex(findingOrder => findingOrder.C5_NUM === orderItem.C5_NUM)
     
     if (foundOrderIndex === -1) {
-      console.log(`Order with number ${orderItem.C6_NUM} not found for item adding!`)
+      console.log(`Order with number ${orderItem.C5_NUM} not found for item adding!`)
       return
     }
     
@@ -395,7 +218,7 @@ export const createOrder = async (order: Order, store: Store): Promise<any> => {
   } = store
   console.log(order.items)
   const orderRequest: OrderCRUDRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     CABEC: {
       C5_TIPO: 'N',
       C5_TPFRETE: 'C',
@@ -431,7 +254,7 @@ export const updateOrder = async (order: Order, store: Store) => {
   } = store
 
   const orderUpdateRequest: OrderCRUDRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     CABEC: {
       C5_TIPO: order.C5_TIPO,
       C5_TPFRETE: order.C5_TPFRETE,
@@ -450,7 +273,7 @@ export const updateOrder = async (order: Order, store: Store) => {
     const response = await api.post('/ALTERAPEDIDO', orderUpdateRequest)
     api.handleResponse(response)
 
-    const foundOrderIndex = orders.findIndex(findingOrder => findingOrder.C5_NUM === order.C5_NUM)
+    const foundOrderIndex = orders?.findIndex(findingOrder => findingOrder.C5_NUM === order.C5_NUM)
 
     if (foundOrderIndex > -1) {
       const updatingOrders = [ ...orders ]
@@ -478,7 +301,7 @@ export const removeOrder = async (orderPosition: number, store: Store): Promise<
   const order = orders[orderPosition]
 
   const orderRemoveRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     CABEC: { C5_NUM: order.C5_NUM },
     ITEM: Array.from(
       { length: order.QTDITEM }, 
@@ -505,11 +328,10 @@ export const removeOrder = async (orderPosition: number, store: Store): Promise<
 
 export const getOrderPaymentMethods = async (dispatch: Dispatch<OrderStateActions>): Promise<void> => {
   try {
-    console.log('passou aqui');
-    //const response = await api.get('/COLETACONDICAO')
+    const response = await api.get('/COLETACONDICAO')
     //const response = responseColetaCondicaoMock
-    //api.handleResponse(response)
-    api.handleResponse([])
+    api.handleResponse(response)
+    //api.handleResponse([])
 
     // const response = {
     //   data: {
@@ -540,7 +362,7 @@ export const getOrderTaxes = async (orderPosition: number, store: Store) => {
   const order = orders[orderPosition]
 
   const orderTaxRequest: OrderDetailRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     NUMERO: order.C5_NUM!
   }
 
@@ -574,7 +396,7 @@ export const getOrderXML = async (order: Order, store: Store): Promise<any> => {
   } = store
 
   const orderTaxRequest: OrderDetailRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     NUMERO: order.C5_NUM!
   }
 
@@ -605,7 +427,7 @@ export const getOrderNFE = async (order: Order, store: Store): Promise<any> => {
   } = store
 
   const orderTaxRequest: OrderDetailRequest = {
-    FILIAL: company.FILIAL?? '01',
+    FILIAL: company.FILIAL?? '0101',
     NUMERO: order.C5_NUM!
   }
 
@@ -654,14 +476,14 @@ export const getOrderStatusReportByProducts = (order: Order[]): any => {
       if(index == -1) {
         reportData.push( {
           id: product.C6_PRODUTO ?? '',
-          description: product.C6_DESCRI ?? '',
+          description: product.B1_DESC ?? '',
           quantity: 1,
-           total: product.C6_TOTAL
+           total: product.C6_VALOR
         })
       }
       else {
         reportData[index].quantity++
-        reportData[index].total += product.C6_TOTAL
+        reportData[index].total += product.C6_VALOR
       }
     })
   })
@@ -678,14 +500,14 @@ export const getTotalOrderValue = (orders: Order[]): number => {
 }
 
 export const generateOrderStatusReport = (orders: Order[] = []): any => ({
-  "Pedido de Venda em Aberto": orders.filter(order => order.STATUS === '0').length,
-  "Pedido de Venda Encerrado": orders.filter(order => order.STATUS === '1').length,
-  "Pedido de Venda Liberado - Blq. Crédito/Estoque": orders.filter(order => order.STATUS === '2').length,
-  "Pedido de Venda Liberado - Sem Bloqueio": orders.filter(order => order.STATUS === '3').length,
-  "Pedido de Venda com Bloqueio de Regra": orders.filter(order => order.STATUS === '4').length,
-  "Pedido de Venda com Bloqueio de Verba": orders.filter(order => order.STATUS === '5').length,
-  "Pedido de Venda Parcialmente Faturado": orders.filter(order => order.STATUS === '7').length,
-  "Pedido de Venda Totalmente Faturado": orders.filter(order => order.STATUS === '8').length,
+  "Pedido de Venda em Aberto": orders?.filter(order => order.STATUS === '0').length,
+  "Pedido de Venda Encerrado": orders?.filter(order => order.STATUS === '1').length,
+  "Pedido de Venda Liberado - Blq. Crédito/Estoque": orders?.filter(order => order.STATUS === '2').length,
+  "Pedido de Venda Liberado - Sem Bloqueio": orders?.filter(order => order.STATUS === '3').length,
+  "Pedido de Venda com Bloqueio de Regra": orders?.filter(order => order.STATUS === '4').length,
+  "Pedido de Venda com Bloqueio de Verba": orders?.filter(order => order.STATUS === '5').length,
+  "Pedido de Venda Parcialmente Faturado": orders?.filter(order => order.STATUS === '7').length,
+  "Pedido de Venda Totalmente Faturado": orders?.filter(order => order.STATUS === '8').length,
 
 })
 
@@ -697,7 +519,7 @@ export const filterOrdersByPeriod = (period: number, orders: Order[]): Order[] =
   initialDate.setDate(initialDate.getDate() - period);
   initialDate.setHours(0, 0, 0, 0);
 
-  return orders.filter(order => {
+  return orders?.filter(order => {
     const splittedOrderDate = order.C5_EMISSAO.split('/')
     const normalizedOrderDate = new Date(`${splittedOrderDate[1]}/${splittedOrderDate[0]}/${splittedOrderDate[2]}`)
     normalizedOrderDate.setHours(0, 0, 0, 0);
@@ -719,7 +541,7 @@ export const getOrdersBestSellers = (orders: Order[], limit?: number): any[] => 
     if (foundItemIndex === -1) {
       report.push({ 
         C6_PRODUTO: orderItem.C6_PRODUTO,
-        C6_DESCR: orderItem.C6_DESCRI,
+        C6_DESCR: orderItem.B1_DESC,
         C6_QTDVEN: orderItem.C6_QTDVEN
       })
       continue
@@ -744,7 +566,7 @@ export const getOrderCountByMonth = (orders: Order[]) => {
     })
   )
 
-  orders.forEach( ({ C5_EMISSAO }) => {
+  orders?.forEach( ({ C5_EMISSAO }) => {
     const orderCreationMonth = C5_EMISSAO.split('/')[1]
     orderCountByYearMonths[orderCreationMonth]++
   })
@@ -760,7 +582,7 @@ export const getOrdersValueSumByMonth = (orders: Order[]) => {
     })
   )
 
-  orders.forEach( ({ C5_EMISSAO, TOTAL }) => {
+  orders?.forEach( ({ C5_EMISSAO, TOTAL }) => {
     const orderCreationMonth = C5_EMISSAO.split('/')[1]
     orderCountByYearMonths[orderCreationMonth] += TOTAL
   })

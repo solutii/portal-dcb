@@ -49,7 +49,7 @@ export const getProductPrice = async (productID: string, paymentMethod: string, 
 
     const productPriceRequest = {
         CLIENTE: customer.A1_COD,
-        FILIAL: company.FILIAL?? '01',
+        FILIAL: company.FILIAL?? '0101',
         LOJA: customer.A1_LOJA,
         CONDICAO: paymentMethod,
         PRODUTO: productID

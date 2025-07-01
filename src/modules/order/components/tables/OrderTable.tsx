@@ -58,13 +58,12 @@ const OrderTable: FC = (): JSX.Element => {
   }
   
   const handleAddToolbarButtonClick = () => {
-    console.log("passou aqui")
-    //dispatch({ type: 'RESET_ORDER' })
+    dispatch({ type: 'RESET_ORDER' })
     setIsOrderFormModalEnabled(true)
   }
 
   const handleEditRowButtonClick = (rowIndex: number) => {
-    //dispatch({ type: 'SET_ORDER', payload: orders[rowIndex] })
+    dispatch({ type: 'SET_ORDER', payload: orders[rowIndex] })
     setIsOrderFormModalEnabled(true)
   }
 
@@ -164,7 +163,7 @@ const OrderTable: FC = (): JSX.Element => {
     if (value === '-1')
       return setFilteredOrders(orders)
 
-    setFilteredOrders(orders.filter(order => order.STATUS === value))
+    setFilteredOrders(orders?.filter(order => order.STATUS === value))
   }
 
   useEffect(() => { setFilteredOrders(orders) }, [orders])
@@ -222,8 +221,8 @@ const OrderTable: FC = (): JSX.Element => {
     STATUS: <TableStatus 
       status={order.STATUS}
       statusColor={{ 
-        A: 'blue', L: 'green', B: 'green', F: 'green', M: 'green',
-        E: 'green', P: 'green', O: '#ffd000', N: 'red', C: 'black'
+        1: 'blue', 2: 'green',3: 'green',
+        4: 'green', 5: 'green', 6: '#ffd000', 7: 'red', 8: 'black'
       }}
       statusLabels={orderStatusLabels} 
     />,
@@ -244,18 +243,19 @@ const OrderTable: FC = (): JSX.Element => {
   
   return <>
     <Table
+      key={`order-table-${filteredOrders.length}`}
       data={generateDisplayableOrders()}
       columns={[
         { displayName: 'Status', dataKey: 'STATUS', alignment: 'center' },
         { displayName: 'Nr Pedido', dataKey: 'C5_NUM', alignment: 'center' },
         { displayName: 'Dt Inclusão', dataKey: 'C5_EMISSAO', alignment: 'center' },
         { displayName: 'Condição de Pagamento', dataKey: 'E4_DESCRI', alignment: 'center' },
-        { displayName: 'Qtd de Itens', dataKey: 'QTDITEM', alignment: 'center' },
+        /* { displayName: 'Qtd de Itens', dataKey: 'QTDITEM', alignment: 'center' }, */
         { displayName: 'Total', dataKey: 'TOTAL', formatFn: formatCurrency },
         { displayName: 'Itens', dataKey: 'items', alignment: 'center' },
         //{ displayName: 'Impostos', dataKey: 'taxes', alignment: 'center' },
         { displayName: 'Baixar XML', dataKey: 'downloadXML', alignment: 'center' },
-        { displayName: 'Baixar NFe', dataKey: 'downloadNFE', alignment: 'center' },
+        /* { displayName: 'Baixar NFe', dataKey: 'downloadNFE', alignment: 'center' }, */
         /* { displayName: 'Copiar Ped', dataKey: 'copyOrder', alignment: 'center' }, */
       ]}
       title='Pedidos'

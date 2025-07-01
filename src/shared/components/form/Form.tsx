@@ -31,9 +31,7 @@ const CustomForm: FC<FormProps> = ({ fields, onSubmit, onChange, isSubmitting, v
 	const errorMessagesByField: FieldErrorMessage = { username: 'Informe um Cpf/Cnpj válidos', quantity: 'Quantidade máxima excedida.' }
 	const errorMessagesByErrorType: FieldErrorMessage = { required: 'Campo obrigatório.' }
 	
-	const handleFormFieldChange = (field: string, value: any, selectOptionIndex?: number) => { 
-
-		console.log("aqui")
+	const handleFormFieldChange = (field: string, value: any, selectOptionIndex?: number) => {
 
 		if(field === "LOGIN") {
 			value = cgcUtils.maskaraCpfCnpj(value)

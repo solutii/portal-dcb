@@ -25,7 +25,7 @@ export const isUserLogged = (store: Store): boolean => {
     if(data != null && data != undefined && data != ''
     && email != null && email != undefined && email != '') {
       (data[0] as Customer).A1_LOJA = '01'
-      ;(data[0] as Customer).A1_FILIAL = '01'
+      ;(data[0] as Customer).A1_FILIAL = '0101'
 
       storeAuth(
         store.authReducer.dispatch, 
@@ -92,7 +92,7 @@ export const changePassword = async ({ LOGIN, newPassword }: any) => {
   }
 }
 
-export const signOut = (navigate: any, dispatch: Dispatch<AuthStateActions>): void => {
+export const signOut = async (navigate: any, dispatch: Dispatch<AuthStateActions>): Promise<void> => {
   cookies.remove('data');
   cookies.remove('email');
   dispatch({ type: 'RESET_AUTHENTICATION' })
@@ -100,4 +100,4 @@ export const signOut = (navigate: any, dispatch: Dispatch<AuthStateActions>): vo
 }
 
 export const initializeAutoLogOffWorker = (navigate: any, dispatch: Dispatch<AuthStateActions>) => 
-  setTimeout(() => (async () => await signOut(navigate, dispatch))(), 1000 * 60 * 15)
+  setTimeout(() => (async () => signOut(navigate, dispatch))(), 1000 * 60 * 15)

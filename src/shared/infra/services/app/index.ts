@@ -18,11 +18,11 @@ export const mainAppDispatch = async (customer: Customer, companies: Company[], 
   } = store
 
   const company: Company = companies[0]
-  companyDispatch({ type: 'SET_COMPANY', payload: { ...company, FILIAL: "01" } })
+  companyDispatch({ type: 'SET_COMPANY', payload: { ...company, FILIAL: "0101" } })
   
-  storeCustomer(customer, customerDispatch)
-  storeCompanies(companies, companyDispatch)
+  await storeCustomer(customer, customerDispatch)
+  await storeCompanies(companies, companyDispatch)
   
   await getOrderPaymentMethods(orderDispatch)
-  await getProducts(productDispatch)
+  //await getProducts(productDispatch)
 }

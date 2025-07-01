@@ -45,7 +45,7 @@ const Layout: FC = () => {
   
   const handleCompanyChooserSubmit = async (companyIndex: number) => {
    /*  await getOrders(customer, companies[companyIndex] , orderDispatch) */
-    companyDispatch({ type: 'SET_COMPANY', payload: { ...companies[companyIndex], FILIAL: "01" } })
+    companyDispatch({ type: 'SET_COMPANY', payload: { ...companies[companyIndex], FILIAL: "0101" } })
     customerDispatch({ type: 'SET_CUSTOMER', payload:companies[companyIndex] })
     getRegisters(companies[companyIndex], companies[companyIndex], store)
   }

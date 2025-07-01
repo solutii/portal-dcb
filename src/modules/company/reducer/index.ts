@@ -5,7 +5,7 @@ export const companyInitialState: CompanyState = {
     A1_COD: '',
     A1_FILIAL: '',
     A1_LOJA: '',
-    FILIAL: '01'
+    FILIAL: '0101'
   },
   companies: []
 }

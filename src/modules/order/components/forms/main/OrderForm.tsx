@@ -73,12 +73,12 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
           C6_ITEM: `${orderItems.length > 8 ? '' : orderItems.length > 98 ? '0' : '00'}${orderItems.length + 1}`,
           C6_PRODUTO: product.B1_COD,
           C6_LOCAL: product.B1_LOCPAD,
-          C6_DESCRI: product.B1_DESC,
+          B1_DESC: product.B1_DESC,
           C6_QTDVEN: 1,
           C6_PRCVEN: product.PRCVEN,
           //C6_PRCVEN: await getProductPrice(product.B1_COD, order.C5_COND, store),
           C6_PRCUNI: product.PRCVEN,
-          C6_TOTAL: product.PRCVEN,
+          C6_VALOR: product.PRCVEN,
           ESTOQUE: product.ESTOQUE,
         }
       ]
@@ -107,7 +107,7 @@ const OrderForm: FC<OrderFormProps> = ({ isEnabled, onSubmit, onClose }: OrderFo
         return
       }
 
-      updatingOrderItems[orderItemIndex].C6_TOTAL = updatingOrderItems[orderItemIndex].C6_PRCVEN * value
+      updatingOrderItems[orderItemIndex].C6_VALOR = updatingOrderItems[orderItemIndex].C6_PRCVEN * value
     }
 
     ;(updatingOrderItems[orderItemIndex] as any)[field] = value

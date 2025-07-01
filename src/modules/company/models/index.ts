@@ -17,7 +17,7 @@ export interface Company {
   A1_FAX?: string  
   A1_CONTATO?: string
   A1_CGC?: string
-  FILIAL: '01'
+  FILIAL: '0101'
 }
 
 export interface CompanyState {
